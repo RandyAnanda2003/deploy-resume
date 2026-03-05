@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Randy Ananda</title>
+  <link rel="icon" type="image/png" href="photo\randy.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <style>
+    :root {
+      --navy: #0a0f1e;
+      --electric: #00e5ff;
+      --accent: #7b61ff;
+      --soft: #e8eaf6;
+    }
+    * { box-sizing: border-box; }
+    body {
+      background: var(--navy);
+      color: var(--soft);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4, .font-display { font-family: 'Syne', sans-serif; }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 1000; opacity: 0.4;
+    }
+
+    .mesh-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 20% 20%, rgba(0,229,255,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 80% 80%, rgba(123,97,255,0.1) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 60% 10%, rgba(0,229,255,0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      backdrop-filter: blur(20px);
+      background: rgba(10,15,30,0.7);
+      border-bottom: 1px solid rgba(0,229,255,0.08);
+    }
+
+    .hero-section {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 7rem 0 4rem; position: relative;
+    }
+    .electric-text {
+      background: linear-gradient(135deg, #00e5ff 0%, #7b61ff 60%, #00e5ff 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      animation: shimmer 4s linear infinite;
+    }
+    @keyframes shimmer { 0%{background-position:0% center} 100%{background-position:200% center} }
+
+    .photo-frame {
+      position: relative; width: 280px; height: 280px;
+      overflow: hidden; border: 2px solid rgba(0,229,255,0.3);
+      box-shadow: 0 0 60px rgba(0,229,255,0.15), 0 0 120px rgba(123,97,255,0.1);
+    }
+    .photo-frame::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg,rgba(0,229,255,0.1),rgba(123,97,255,0.1));
+      z-index: 1; pointer-events: none;
+    }
+    .photo-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: linear-gradient(135deg,#0f1a30,#1a0f30); gap: 0.75rem;
+    }
+
+    .section-label {
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: #00e5ff; font-family: 'Syne', sans-serif; font-weight: 600;
+    }
+
+    .glass-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 1.25rem; backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+    .glass-card:hover {
+      background: rgba(0,229,255,0.04);
+      border-color: rgba(0,229,255,0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .tag {
+      display: inline-block; padding: 0.2rem 0.7rem; border-radius: 100px;
+      font-size: 0.7rem; font-weight: 500;
+      background: rgba(123,97,255,0.15); border: 1px solid rgba(123,97,255,0.3);
+      color: #b9aeff; white-space: nowrap;
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-wrapper {
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    }
+    .marquee-track {
+      display: flex; gap: 1.1rem;
+      animation: marquee 22s linear infinite; width: max-content;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+    @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    .tech-pill {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.5rem 1.1rem 0.5rem 0.6rem;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(0,229,255,0.12);
+      white-space: nowrap; font-size: 0.87rem; font-weight: 500;
+      font-family: 'Syne', sans-serif; letter-spacing: 0.02em;
+      transition: all 0.3s; cursor: default;
+    }
+    .tech-pill:hover {
+      background: rgba(0,229,255,0.07); border-color: rgba(0,229,255,0.35);
+      transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,229,255,0.1);
+    }
+
+    /*
+    ╔══════════════════════════════════════════════════════════════════╗
+    ║  TOOL ICON PLACEHOLDER                                          ║
+    ║  Cara ganti: tambahkan                                          ║
+    ║    style="background-image:url('icons/nama_tool.png')"          ║
+    ║  pada elemen <span class="tool-icon"> yang sesuai.              ║
+    ║  Hapus data-fallback setelah gambar terpasang.                  ║
+    ║  Ukuran gambar ideal: 28×28px atau lebih besar.                 ║
+    ╚══════════════════════════════════════════════════════════════════╝
+    */
+    .tool-icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    flex-shrink: 0;
+    object-fit: contain;
+    }
+    /* ── PROJECT CARDS WITH BG IMAGE ── */
+    /*
+    ╔══════════════════════════════════════════════════════════════════╗
+    ║  PROJECT BACKGROUND IMAGE                                       ║
+    ║  Cara taruh gambar: tambahkan                                   ║
+    ║    style="background-image:url('projects/nama_gambar.jpg')"     ║
+    ║  pada elemen <div class="project-bg"> di setiap kartu.          ║
+    ║  Gambar akan di-overlay gradient gelap agar teks terbaca.       ║
+    ║  Ukuran ideal: min 800×500px, format JPG/PNG/WebP.              ║
+    ╚══════════════════════════════════════════════════════════════════╝
+    */
+    .project-card {
+      position: relative; border-radius: 1.25rem; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: all 0.4s ease; min-height: 270px;
+      display: flex; flex-direction: column; justify-content: flex-end;
+    }
+    .project-card:hover {
+      border-color: rgba(0,229,255,0.3); transform: translateY(-5px);
+      box-shadow: 0 25px 70px rgba(0,0,0,0.5);
+    }
+    .project-bg {
+      position: absolute; inset: 0;
+      background-color: #0d1525;
+      background-size: cover; background-position: center;
+      transition: transform 0.5s ease;
+    }
+    .project-card:hover .project-bg { transform: scale(1.04); }
+    .project-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(5,8,20,0.97) 0%, rgba(5,8,20,0.72) 45%, rgba(5,8,20,0.25) 100%);
+    }
+    .project-tint { position: absolute; inset: 0; opacity: 0.3; }
+    .project-content { position: relative; z-index: 2; padding: 1.75rem; }
+    .project-top {
+      position: absolute; top: 1.1rem; right: 1.1rem; z-index: 3;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline-line {
+      position: absolute; left: 20px; top: 0; bottom: 0; width: 1px;
+      background: linear-gradient(to bottom, rgba(0,229,255,0.4), rgba(123,97,255,0.2), transparent);
+    }
+    .timeline-dot {
+      position: absolute; left: 12px; width: 17px; height: 17px; border-radius: 50%;
+      background: var(--navy); border: 2px solid var(--electric);
+      box-shadow: 0 0 12px rgba(0,229,255,0.5);
+    }
+
+    .gpa-badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.35rem 1rem; border-radius: 100px;
+      background: rgba(0,229,255,0.08); border: 1px solid rgba(0,229,255,0.25);
+      font-size: 0.85rem; color: #00e5ff; font-weight: 600;
+    }
+
+    .metric-card {
+      background: linear-gradient(135deg,rgba(0,229,255,0.06),rgba(123,97,255,0.06));
+      border: 1px solid rgba(0,229,255,0.12); border-radius: 1rem;
+      padding: 1.5rem; text-align: center;
+    }
+    .metric-value {
+      font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800;
+      background: linear-gradient(135deg,#00e5ff,#7b61ff);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 2rem; border-radius: 100px;
+      background: linear-gradient(135deg,#00e5ff 0%,#7b61ff 100%);
+      color: var(--navy); font-family: 'Syne',sans-serif; font-weight: 700;
+      font-size: 0.9rem; letter-spacing: 0.03em; border: none; cursor: pointer;
+      transition: all 0.3s; text-decoration: none;
+    }
+    .btn-primary:hover { box-shadow: 0 8px 30px rgba(0,229,255,0.35); transform: translateY(-2px); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 2rem; border-radius: 100px; background: transparent;
+      color: #00e5ff; font-family: 'Syne',sans-serif; font-weight: 600;
+      font-size: 0.9rem; border: 1.5px solid rgba(0,229,255,0.4);
+      cursor: pointer; transition: all 0.3s; text-decoration: none;
+    }
+    .btn-outline:hover { background: rgba(0,229,255,0.08); border-color: #00e5ff; }
+
+    /*
+    ╔══════════════════════════════════════════════════════════════════╗
+    ║  CERTIFICATION LOGO                                             ║
+    ║  Cara ganti:                                                    ║
+    ║    Ganti <img src="LOGO_XXX.png"> dengan logo asli.            ║
+    ║    PNG transparan hasilnya lebih bagus.                         ║
+    ║    Ukuran ideal: 48×48px atau lebih besar.                      ║
+    ╚══════════════════════════════════════════════════════════════════╝
+    */
+    .cert-logo {
+      width: 48px; height: 48px; border-radius: 10px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      overflow: hidden; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .cert-logo img { width: 100%; height: 100%; object-fit: contain; padding: 7px; }
+
+    .fade-up {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    footer { border-top: 1px solid rgba(255,255,255,0.06); }
+
+    #typed-cursor {
+      display: inline-block;
+      margin-left: 2px;
+      color: #00e5ff;
+      font-weight: 300;
+      animation: blink 0.7s step-end infinite;
+      -webkit-text-fill-color: #00e5ff;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <span class="font-display font-bold text-lg electric-text">Si(Rendy);</span>
+    <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
+      <a href="#about"      class="hover:text-white transition-colors">About</a>
+      <a href="#skills"     class="hover:text-white transition-colors">Skills</a>
+      <a href="#projects"   class="hover:text-white transition-colors">Projects</a>
+      <a href="#experience" class="hover:text-white transition-colors">Experience</a>
+      <a href="#contact"    class="hover:text-white transition-colors">Contact</a>
+    </div>
+    <a href="#contact" class="btn-primary text-xs py-2 px-5">Hire Me</a>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero-section max-w-6xl mx-auto px-6 relative" id="about">
+  <div class="mesh-bg"></div>
+  <div class="relative z-10 flex flex-col md:flex-row items-center gap-12 md:gap-20">
+    <div class="flex-1 text-center md:text-left">
+      <p class="section-label mb-4">AI &amp; ML Engineer · Backend Engineer</p>
+      <h2 class="text-5xl md:text-6xl font-display font-extrabold leading-tight mb-6">
+        Randy Aulia<br><span class="electric-text">Ananda R.</span>
+      </h2>
+      <p class="text-gray-400 text-xl leading-relaxed max-w-xl mb-8">
+        An informatics student that interested in <span id="typed-role" class="electric-text font-bold"></span><span id="typed-cursor">|</span>
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center md:justify-start mt-8">
+        <a href="#projects" class="btn-primary">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Lihat Proyek
+        </a>
+        <a href="https://s.pnj.ac.id/CV-RANDY-AULIA" class="btn-outline">Download CV Saya</a>
+      </div>
+    </div>
+    <div class="flex-shrink-0">
+      <div class="photo-frame" style="border-radius:40% 60% 60% 40%/40% 40% 60% 60%;">
+        <!-- GANTI src dengan path foto kamu, misal: src="foto.jpg" -->
+        <img id="profile-img" src="/photo/foto_baru-removebg-preview.png" alt="Randy Aulia"
+          class="w-full h-full object-cover" style="display:none;"
+          onerror="this.style.display='none';document.getElementById('photo-ph').style.display='flex';"/>
+        <div id="photo-ph" class="photo-placeholder" style="display:flex;">
+          <svg fill="none" stroke="#00e5ff" stroke-width="1" viewBox="0 0 24 24" width="60" height="60" opacity="0.3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+          </svg>
+          <span style="font-size:.74rem;color:rgba(0,229,255,.4);font-family:'DM Sans',sans-serif;">Taruh foto di sini</span>
+          <span style="font-size:.6rem;color:rgba(0,229,255,.22);font-family:'DM Sans',sans-serif;">Ganti src pada tag &lt;img&gt;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-4 mt-16">
+    <div class="metric-card fade-up"><div class="metric-value">5+</div><div class="text-xs text-gray-500 mt-1">AI/ML Project</div></div>
+    <div class="metric-card fade-up" style="transition-delay:.1s"><div class="metric-value">4</div><div class="text-xs text-gray-500 mt-1"> Web Dev Project</div></div>
+    <div class="metric-card fade-up" style="transition-delay:.2s"><div class="metric-value">3</div><div class="text-xs text-gray-500 mt-1">Profesional Certification</div></div>
+    <div class="metric-card fade-up" style="transition-delay:.3s"><div class="metric-value">1</div><div class="text-xs text-gray-500 mt-1">Year in AI Work Experiences</div></div>
+  </div>
+</section>
+
+
+
+<!-- ══ SKILLS / MARQUEE ══ -->
+<section id="skills" class="py-20 relative">
+  <div class="max-w-6xl mx-auto px-6 mb-10 fade-up">
+    <p class="section-label mb-2">Tech Stack</p>
+    <h2 class="text-3xl md:text-4xl font-display font-bold">Tools &amp; Keahlian</h2>
+  </div>
+
+  <!-- ROW 1 -->
+  <div class="marquee-wrapper fade-up">
+    <div class="marquee-track py-2">
+      <div class="tech-pill"><img class="tool-icon" src="photo\N8N.png" alt="N8N">N8N</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\pytorch.png" alt="PyTorch">PyTorch</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\sklearn.png" alt="Scikit-Learn">Scikit-Learn</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\tensorflow.png" alt="TensorFlow">TensorFlow</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\fastapi.png" alt="FastAPI">FastAPI</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\golang.png" alt="Golang">Golang</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\python.png" alt="Python">Python</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\huggingface.png" alt="Hugging Face">Hugging Face</div>
+      <!-- DUPLICATE -->
+      <div class="tech-pill"><img class="tool-icon" src="photo\N8N.png" alt="N8N">N8N</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\pytorch.png" alt="PyTorch">PyTorch</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\sklearn.png" alt="Scikit-Learn">Scikit-Learn</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\tensorflow.png" alt="TensorFlow">TensorFlow</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\fastapi.png" alt="FastAPI">FastAPI</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\golang.png" alt="Golang">Golang</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\python.png" alt="Python">Python</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\huggingface.png" alt="Hugging Face">Hugging Face</div>
+    </div>
+  </div>
+
+  <!-- ROW 2 reverse -->
+  <div class="marquee-wrapper mt-3 fade-up">
+    <div class="marquee-track py-2" style="animation-direction:reverse;animation-duration:26s;">
+      <div class="tech-pill"><img class="tool-icon" src="photo\docker.png" alt="Docker">Docker</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\gitlab.png" alt="GitLab CI/CD">GitLab CI/CD</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\aws.png" alt="AWS">AWS</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\postgres.png" alt="PostgreSQL">PostgreSQL</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\flask.png" alt="Flask">Flask</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\gemini.png" alt="LLM / Gemini">LLM / Gemini</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\laravel.png" alt="Laravel 11">Laravel 11</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\postman.png" alt="Postman">Postman</div>
+      <!-- DUPLICATE -->
+      <div class="tech-pill"><img class="tool-icon" src="photo\docker.png" alt="Docker">Docker</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\gitlab.png" alt="GitLab CI/CD">GitLab CI/CD</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\aws.png" alt="AWS">AWS</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\postgres.png" alt="PostgreSQL">PostgreSQL</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\flask.png" alt="Flask">Flask</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\gemini.png" alt="LLM / Gemini">LLM / Gemini</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\laravel.png" alt="Laravel 11">Laravel 11</div>
+      <div class="tech-pill"><img class="tool-icon" src="photo\postman.png" alt="Postman">Postman</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROJECTS ══ -->
+<section id="projects" class="py-20 max-w-6xl mx-auto px-6">
+  <div class="mb-12 fade-up">
+    <p class="section-label mb-2">Portfolio</p>
+    <h2 class="text-3xl md:text-4xl font-display font-bold">Proyek Unggulan</h2>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-6">
+
+    <!-- ─ Project 1 ─ -->
+    <div class="project-card fade-up">
+      <img src="photo\shutterstock_2488797873.jpg" alt="Project 1" class="absolute inset-0 w-full h-full object-cover opacity-25">
+      <div class="project-overlay"></div>
+      <div class="project-tint" style="background:linear-gradient(135deg,rgba(0,229,255,0.25),rgba(0,80,100,0.15));"></div>
+      <a href="https://s.pnj.ac.id/website_DJM" class="project-top text-gray-400 hover:text-white transition-colors p-1.5 rounded-lg" style="background:rgba(0,0,0,0.45);backdrop-filter:blur(8px);">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+      </a>
+      <div class="project-content">
+        <div class="flex items-center gap-2 mb-3">
+          <svg width="15" height="15" fill="none" stroke="#00e5ff" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+          <span class="text-xs font-semibold text-cyan-400 tracking-wider uppercase">AI Automation</span>
+        </div>
+        <h3 class="font-display font-bold text-xl mb-2 text-white leading-snug">AI Automation Pipeline<br>Distinct Job Manual</h3>
+        <p class="text-gray-300 text-sm leading-relaxed mb-4">End-to-end LLM Apilogy Telkom pipeline untuk otomatisasi Job Manual di Direktorat HCM. N8N → FastAPI → Docker → AWS + GitLab CI/CD.</p>
+        <div class="flex flex-wrap gap-2"><span class="tag">N8N</span><span class="tag">FastAPI</span><span class="tag">Docker</span><span class="tag">AWS</span><span class="tag">LLM</span></div>
+      </div>
+    </div>
+
+    <!-- ─ Project 2 ─ -->
+    <div class="project-card fade-up" style="transition-delay:.1s">
+      <img src="photo\biaya-layanan-tokopedia-naik-jadi-berapa-sekarang-2_169.jpeg" alt="Project 2" class="absolute inset-0 w-full h-full object-cover opacity-25">
+      <div class="project-overlay"></div>
+      <div class="project-tint" style="background:linear-gradient(135deg,rgba(123,97,255,0.3),rgba(60,0,120,0.15));"></div>
+      <a href="https://s.pnj.ac.id/web-tokopedia" class="project-top text-gray-400 hover:text-white transition-colors p-1.5 rounded-lg" style="background:rgba(0,0,0,0.45);backdrop-filter:blur(8px);">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+      </a>
+      <div class="project-content">
+        <div class="flex items-center gap-2 mb-3">
+          <svg width="15" height="15" fill="none" stroke="#b9aeff" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"/></svg>
+          <span class="text-xs font-semibold text-purple-400 tracking-wider uppercase">NLP · Summarization</span>
+        </div>
+        <h3 class="font-display font-bold text-xl mb-2 text-white leading-snug">Text Summarization<br>Ulasan E-Commerce</h3>
+        <p class="text-gray-300 text-sm leading-relaxed mb-4">IndoT5 + DAPT &amp; fine-tuning pada 20.000+ data Tokopedia. ROUGE-L: <strong class="text-white">54.5</strong> · Cosine Sim: <strong class="text-white">85%</strong>.</p>
+        <div class="flex flex-wrap gap-2"><span class="tag">PyTorch</span><span class="tag">IndoT5</span><span class="tag">Hugging Face</span><span class="tag">DAPT</span></div>
+      </div>
+    </div>
+
+    <!-- ─ Project 3 ─ -->
+    <div class="project-card fade-up" style="transition-delay:.15s">
+      <img src="D:\Randy\semester 8\Magang\photo\image (2).png" alt="Project 3" class="absolute inset-0 w-full h-full object-cover opacity-25">
+      <div class="project-overlay"></div>
+      <div class="project-tint" style="background:linear-gradient(135deg,rgba(0,200,150,0.2),rgba(0,70,50,0.15));"></div>
+      <div class="project-content">
+        <div class="flex items-center gap-2 mb-3">
+          <svg width="15" height="15" fill="none" stroke="#34d399" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"/></svg>
+          <span class="text-xs font-semibold text-emerald-400 tracking-wider uppercase">Time Series · Forecasting</span>
+        </div>
+        <h3 class="font-display font-bold text-xl mb-2 text-white leading-snug">Prediksi Penjualan<br>E-Commerce</h3>
+        <p class="text-gray-300 text-sm leading-relaxed mb-4">XGBoost + Grid Search + Time Series CV pada data 2 tahun. MAPE: <strong class="text-white">8.16%</strong> · R²: <strong class="text-white">0.83</strong>.</p>
+        <div class="flex flex-wrap gap-2"><span class="tag">XGBoost</span><span class="tag">Scikit-Learn</span><span class="tag">Pandas</span><span class="tag">Gemini</span></div>
+      </div>
+    </div>
+
+    <!-- ─ Project 4 ─ -->
+    <div class="project-card fade-up" style="transition-delay:.2s">
+      <img src="photo\pemilik-shopee.jpg" alt="Project 4" class="absolute inset-0 w-full h-full object-cover opacity-25">
+      <div class="project-overlay"></div>
+      <div class="project-tint" style="background:linear-gradient(135deg,rgba(251,146,60,0.2),rgba(120,50,0,0.15));"></div>
+      <a href="https://huggingface.co/siRendy/indobert-sentimen-analisis-shopee" class="project-top text-gray-400 hover:text-white transition-colors p-1.5 rounded-lg" style="background:rgba(0,0,0,0.45);backdrop-filter:blur(8px);">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+      </a>
+      <div class="project-content">
+        <div class="flex items-center gap-2 mb-3">
+          <svg width="15" height="15" fill="none" stroke="#fb923c" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z"/></svg>
+          <span class="text-xs font-semibold text-orange-400 tracking-wider uppercase">NLP · Sentiment Analysis</span>
+        </div>
+        <h3 class="font-display font-bold text-xl mb-2 text-white leading-snug">Sentiment Classification<br>Ulasan E-Commerce</h3>
+        <p class="text-gray-300 text-sm leading-relaxed mb-4">IndoBERT + DAPT &amp; fine-tuning pada 65.000+ data ulasan. Accuracy &amp; F1: <strong class="text-white">94.4%</strong>.</p>
+        <div class="flex flex-wrap gap-2"><span class="tag">IndoBERT</span><span class="tag">PyTorch</span><span class="tag">Hugging Face</span><span class="tag">Flask</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ EXPERIENCE ══ -->
+<section id="experience" class="py-20" style="background:rgba(255,255,255,0.015);border-top:1px solid rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.05);">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="mb-12 fade-up">
+      <p class="section-label mb-2">Karier</p>
+      <h2 class="text-3xl md:text-4xl font-display font-bold">Pengalaman Kerja</h2>
+    </div>
+    <div class="grid md:grid-cols-2 gap-12">
+      <div>
+        <h3 class="font-display font-semibold text-gray-300 mb-8 text-xs uppercase tracking-widest">Industri</h3>
+        <div class="relative pl-12 space-y-10">
+          <div class="timeline-line"></div>
+          <div class="relative fade-up">
+            <div class="timeline-dot" style="top:6px;"></div>
+            <div class="glass-card p-5">
+              <div class="flex items-start justify-between mb-1">
+                <h4 class="font-display font-bold text-white">PT. Telekomunikasi Indonesia</h4>
+                <span class="text-xs text-gray-500 ml-2 whitespace-nowrap">2025</span>
+              </div>
+              <p class="text-sm text-cyan-400 mb-3">AI Engineer — Human Capital Strategic Partner Internship</p>
+              <p class="text-gray-400 text-sm">Mempercepat pembuatan Distinc Job manual hingga 80% dengan mengembangkan Aplikasi Web AI automation dengan LLM TelkomGPT.</p>
+            </div>
+          </div>
+          <div class="relative fade-up" style="transition-delay:.1s">
+            <div class="timeline-dot" style="top:6px;"></div>
+            <div class="glass-card p-5">
+              <div class="flex items-start justify-between mb-1">
+                <h4 class="font-display font-bold text-white">PT. Lapis AI Indonesia</h4>
+                <span class="text-xs text-gray-500 ml-2 whitespace-nowrap">2024</span>
+              </div>
+              <p class="text-sm text-cyan-400 mb-3">AI Engineer — Program Proyek Industri</p>
+              <p class="text-gray-400 text-sm">Mengembangkan engine AI untuk mempercepat customer e-commerce dalam menangkap informasi ulasan produk hingga 80% & membantu pemilik toko e-commerce dalam menganalisis sentimen produknya dan sales mitigation dengan forecasting yang dianalisa dengan LLM Gemini</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 class="font-display font-semibold text-gray-300 mb-8 text-xs uppercase tracking-widest">Organisasi</h3>
+        <div class="relative pl-12 space-y-10">
+          <div class="timeline-line"></div>
+          <div class="relative fade-up">
+            <div class="timeline-dot" style="top:6px;background:rgba(10,15,30,1);border-color:#7b61ff;box-shadow:0 0 12px rgba(123,97,255,0.5);"></div>
+            <div class="glass-card p-5">
+              <div class="flex items-start justify-between mb-1">
+                <h4 class="font-display font-bold text-white">BEM PNJ</h4>
+                <span class="text-xs text-gray-500 ml-2 whitespace-nowrap">2024–2025</span>
+              </div>
+              <p class="text-sm mb-3" style="color:#b9aeff;">Deputi Human Resources &amp; Development</p>
+              <p class="text-gray-400 text-sm">Membangun sistem penilaian kinerja fungsionaris berbasis DSS dengan metode MOORA sebagai acuan Staff of the Month berbasis Laravel 11</p>
+            </div>
+          </div>
+          <div class="relative fade-up" style="transition-delay:.1s">
+            <div class="timeline-dot" style="top:6px;background:rgba(10,15,30,1);border-color:#7b61ff;box-shadow:0 0 12px rgba(123,97,255,0.5);"></div>
+            <div class="glass-card p-5">
+              <div class="flex items-start justify-between mb-1">
+                <h4 class="font-display font-bold text-white">Himpunan Mahasiswa TIK PNJ</h4>
+                <span class="text-xs text-gray-500 ml-2 whitespace-nowrap">2023–2024</span>
+              </div>
+              <p class="text-sm mb-3" style="color:#b9aeff;">Wakil Ketua Umum</p>
+              <p class="text-gray-400 text-sm">Memimpin organisasi, memastikan program kerja berjalan tepat waktu, dan berkoordinasi dalam pengambilan keputusan strategis.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ EDUCATION + CERTIFICATIONS ══ -->
+<section class="py-20 max-w-6xl mx-auto px-6">
+  <div class="grid md:grid-cols-2 gap-12">
+
+    <div class="fade-up">
+      <p class="section-label mb-2">Akademik</p>
+      <h2 class="text-3xl font-display font-bold mb-8">Pendidikan</h2>
+      <div class="glass-card p-7">
+        <div class="flex items-center gap-4 mb-5">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.15);">
+            <svg width="26" height="26" fill="none" stroke="#00e5ff" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-white">Politeknik Negeri Jakarta</h3>
+            <p class="text-gray-500 text-sm">D4 Teknik Informatika dan Komputer</p>
+          </div>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-gray-400 text-sm">2022 — 2026</span>
+          <span class="gpa-badge text-sm">IPK 3.90 / 4.00</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="fade-up" style="transition-delay:.1s">
+      <p class="section-label mb-2">Sertifikasi</p>
+      <h2 class="text-3xl font-display font-bold mb-8">Lisensi &amp; Sertifikat</h2>
+      <div class="space-y-4">
+
+        <!--
+          ─── AWS ────────────────────────────────────────────────────────
+          GANTI: <img src="LOGO_AWS.png"> dengan logo AWS asli.
+          Download logo: https://aws.amazon.com/id/about-aws/partner-network/
+          Format PNG transparan, ukuran 48×48px atau lebih besar.
+          ────────────────────────────────────────────────────────────────
+        -->
+        <div class="glass-card p-5 flex items-center gap-4">
+          <div class="cert-logo" style="background:#0f1522;">
+            <!-- GANTI src dengan file logo AWS yang kamu unduh -->
+            <img src="photo\aws.png" alt="AWS Logo"
+              onerror="this.style.display='none';this.parentNode.querySelector('svg').style.display='block';"
+            />
+          </div>
+          <div class="flex-1 min-w-0">
+            <h4 class="font-display font-semibold text-white text-sm">Cloud Computing Engineer</h4>
+            <p class="text-gray-500 text-xs">Amazon Web Services (AWS) · 2025</p>
+          </div>
+          <a href="https://s.pnj.ac.id/sertifikat-AWS" class="text-gray-600 hover:text-cyan-400 transition-colors flex-shrink-0">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+          </a>
+        </div>
+
+        <!--
+          ─── BNSP ───────────────────────────────────────────────────────
+          GANTI: <img src="LOGO_BNSP.png"> dengan logo BNSP asli.
+          Logo bisa diunduh dari: https://bnsp.go.id
+          ────────────────────────────────────────────────────────────────
+        -->
+        <div class="glass-card p-5 flex items-center gap-4">
+          <div class="cert-logo" style="background:#0d1525;">
+            <!-- GANTI src dengan file logo BNSP yang kamu unduh -->
+            <img src="photo\bnsp.png" alt="BNSP Logo"
+              onerror="this.style.display='none';this.parentNode.querySelector('svg').style.display='block';"
+            />
+          </div>
+          <div class="flex-1 min-w-0">
+            <h4 class="font-display font-semibold text-white text-sm">Data Science Certified</h4>
+            <p class="text-gray-500 text-xs">Badan Nasional Sertifikasi Profesi (BNSP) · 2025</p>
+          </div>
+          <a href="https://s.pnj.ac.id/sertifikat-BNSP" class="text-gray-600 hover:text-cyan-400 transition-colors flex-shrink-0">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+          </a>
+        </div>
+
+        <!--
+          ─── HACKTIVATE ─────────────────────────────────────────────────
+          GANTI: <img src="LOGO_HACKTIVATE.png"> dengan logo Hacktivate.
+          ────────────────────────────────────────────────────────────────
+        -->
+        <div class="glass-card p-5 flex items-center gap-4">
+          <div class="cert-logo" style="background:#0d1525;">
+            <!-- GANTI src dengan file logo Hacktivate yang kamu unduh -->
+            <img src="photo\hacktiv8.jpg" alt="Hacktivate Logo"
+              onerror="this.style.display='none';this.parentNode.querySelector('svg').style.display='block';"
+            />
+
+          </div>
+          <div class="flex-1 min-w-0">
+            <h4 class="font-display font-semibold text-white text-sm">Generative AI &amp; Machine Learning</h4>
+            <p class="text-gray-500 text-xs">Hacktivate Teknologi Indonesia · 2024 · Final Grade: <strong class="text-white">96.7 (A)</strong></p>
+          </div>
+          <a href="https://s.pnj.ac.id/sertifikat-Hacktiv8" class="text-gray-600 hover:text-cyan-400 transition-colors flex-shrink-0">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact" class="py-24 relative overflow-hidden">
+  <div class="mesh-bg" style="opacity:.6;"></div>
+  <div class="max-w-3xl mx-auto px-6 text-center relative z-10 fade-up">
+    <p class="section-label mb-4">Let's Connect</p>
+    <h2 class="text-4xl md:text-5xl font-display font-extrabold mb-6 leading-tight">
+      Saya Siap Untuk Membangun Relasi<br><span class="electric-text">Hubungi Saya.</span>
+    </h2>
+    <p class="text-gray-400 text-lg mb-10">
+        Jika anda tertarik untuk berdiskusi dengan saya, mohon berkenan untuk hubungi saya melalui kontak dibawah ini
+    </p>
+    <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="mailto:randyaananda@gmail.com?subject=Kerjasama Project&body=Halo Rendy,%0ASaya tertarik dengan portfolio kamu." class="btn-primary text-base px-8 py-4">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        Kirim Email
+      </a>
+      <a href="https://www.linkedin.com/in/randy-aulia-ananda-ruslani-0b4732243/" target="_blank" class="btn-outline text-base px-8 py-4">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/RandyAnanda2003" target="_blank" class="btn-outline text-base px-8 py-4">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="py-8 max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-gray-600 text-sm">
+  <span class="font-display font-bold electric-text">Si(Rendy);</span>
+  <span>© 2026 Randy Aulia Ananda Ruslani · D4 Teknik Informatika PNJ</span>
+  <span>Built with HTML &amp; TailwindCSS</span>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(
+    (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+  const img = document.getElementById('profile-img');
+  if (img && !img.src.includes('YOUR_PHOTO_HERE')) {
+    img.style.display = 'block';
+    const ph = document.getElementById('photo-ph');
+    if (ph) ph.style.display = 'none';
+  }
+    const roles = ["AI Engineer", "Data Science", "Backend Engineer"];
+  let roleIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+  const el = document.getElementById("typed-role");
+
+  function type() {
+    const current = roles[roleIndex];
+    if (isDeleting) {
+      el.textContent = current.substring(0, charIndex--);
+    } else {
+      el.textContent = current.substring(0, charIndex++);
+    }
+
+    let delay = isDeleting ? 60 : 100;
+
+    if (!isDeleting && charIndex === current.length + 1) {
+      delay = 1500; // pause sebelum dihapus
+      isDeleting = true;
+    } else if (isDeleting && charIndex === 0) {
+      isDeleting = false;
+      roleIndex = (roleIndex + 1) % roles.length;
+      delay = 400;
+    }
+
+    setTimeout(type, delay);
+  }
+
+  type();
+</script>
+</body>
+</html>
